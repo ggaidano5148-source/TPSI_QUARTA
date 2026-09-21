@@ -1,6 +1,6 @@
 "use strict"
 
-const films = [
+let films = [
     // Id, Title, Favorite, Watch date, Rating (0-5)
     [1, "Pulp Fiction", true, "10-03-2024", 5],
     [2, "21 Grammi", true, "17-03-2024", 3],
@@ -14,7 +14,24 @@ const films = [
 
 let tBody = document.getElementsByTagName("tbody")[0];
 
-for (const film of films) {
+addEventListener();
+visualizza();
+
+function addEventListener(){
+    let btnAdd = document.getElementById("btn-add");
+    btnAdd.addEventListener("click", AddNewFilm)
+    btnClear.addEventListener("click", puliscilista)
+}
+
+function puliscilista(){
+    films = []
+    visualizza()
+}
+
+
+function visualizza(){
+    tBody.innerHTML = ""
+    for (const film of films) {
     let row = document.createElement("tr");
     tBody.appendChild(row);
     for (let i = 0; i< film.length; i++) {
@@ -32,6 +49,7 @@ for (const film of films) {
             cell.innerHTML = field
         }
     }
+}
 }
 
 function createPreferitoInnerHTML(cell, preferitovalue){
@@ -53,4 +71,32 @@ function createratingInnerHTML(cell, ratingvalue){
         }
         cell.appendChild(star);
     }
+}
+
+function AddNewFilm(){
+    let id = films.length + 1;
+    let Title = prompt("inserire il titolo del nuovo film")
+    let favorite = random(0,2)
+    if(favorite == 0)
+        favorite == false
+    else
+        favorite == true
+    let today = (new Date()).toLocaleDateString().replaceAll("/", "-")
+    let rating = random(1,6)
+
+    let film = []
+    film.push(id)
+    film.push(Title)
+    film.push(favorite)
+    film.push(today)
+    film.push(rating)
+
+    films.push(film)
+
+    visualizza()
+
+}
+
+function random(min, max){
+    return (Math.floor((max - min)*Math.random())) + min
 }
