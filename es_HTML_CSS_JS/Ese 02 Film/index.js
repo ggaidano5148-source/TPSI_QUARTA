@@ -13,6 +13,8 @@ let films = [
 
 
 let tBody = document.getElementsByTagName("tbody")[0];
+const modal = new bootstrap.Modal("#modal-count-films")
+const alertLogin = document.getElementById("alert-login")
 
 addEventListener();
 visualizza();
@@ -21,6 +23,17 @@ function addEventListener(){
     let btnAdd = document.getElementById("btn-add");
     btnAdd.addEventListener("click", AddNewFilm)
     btnClear.addEventListener("click", puliscilista)
+    btnReload.addEventListener("click", function(){
+        window.location.reload()
+        //window.location.href = "./index.html"
+    })
+    btnCount.addEventListener("click", contaFilm)
+    let btnLogin = document.getElementById("btn-login");
+    btnLogin.addEventListener("click", visualizzaLogin)
+    const btnLoginClose = document.getElementsByClassName("btn-close")[1]
+    btnLoginClose.addEventListener("click", function(){
+        alertLogin.classList.add("d-none")
+    })
 }
 
 function puliscilista(){
@@ -95,6 +108,16 @@ function AddNewFilm(){
 
     visualizza()
 
+}
+
+function contaFilm(){
+    const span = document.getElementById("span-n-films")
+    span.textContent = films.length
+    modal.show();
+}
+
+function visualizzaLogin(){
+    alertLogin.classList.remove("d-none")
 }
 
 function random(min, max){
