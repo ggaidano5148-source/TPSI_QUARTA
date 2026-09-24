@@ -118,6 +118,9 @@ function contaFilm(){
 
 function visualizzaLogin(){
     alertLogin.classList.remove("d-none")
+    setTimeout(function(){
+        alertLogin.classList.add("d-none")
+    }, 3000)
 }
 
 function random(min, max){
