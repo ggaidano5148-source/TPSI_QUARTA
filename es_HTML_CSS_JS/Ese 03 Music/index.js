@@ -3,8 +3,9 @@
 const content = document.getElementById("content") // non indispensabile
 const genderElements = document.querySelectorAll(".dropdown-menu li");
 
-const playModal = document.getElementById("play-modal")
+//const playModalID = document.getElementById("play-modal")
 const span = document.getElementById("song-title-modal")
+const playModal = new bootstrap.Modal("#play-modal")
 
 for (let genderElement of genderElements) {
 	genderElement.addEventListener("click", genderClick)
@@ -12,10 +13,12 @@ for (let genderElement of genderElements) {
 
 const iFriends = document.getElementById("i-friends");
 iFriends.addEventListener("click", showAlert);
+//finestra alert
 const alertFriends = document.getElementById("alert-friends");
 
 const iSearch = document.getElementById("i-search");
 iSearch.addEventListener("click", toggleSearch);
+
 const txtSearch = document.getElementById("txt-search");
 
 loadSongs();
@@ -64,8 +67,9 @@ function loadSongs(genre){
 		const button = document.createElement("btn")
 		button.classList.add("btn", "btn-secondary")
 		button.textContent = "play"
-		BigInt.addEventListener("click", function(){
-			
+		button.addEventListener("click", function(){
+			span.textContent= song[1] + " di " + song[2]
+			playModal.show()
 		})
 		col2.append(button)
 		}
@@ -84,10 +88,18 @@ function genderClick(e){
 }
 
 function showAlert(){
-
+	alertFriends.classList.remove("d-none")
+	setTimeout(function(){
+	alertFriends.classList.add("d-none")	
+	}, 3000)
 }
 
 function toggleSearch(){
-	
+	if(txtSearch.classList.contains("d-none")){
+		txtSearch.classList.remove("d-none")
+	}
+	else{
+		txtSearch.classList.add("d-none")
+	}
 }
 
