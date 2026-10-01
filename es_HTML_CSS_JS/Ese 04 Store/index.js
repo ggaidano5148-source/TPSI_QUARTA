@@ -2,33 +2,55 @@
 
 const content = document.getElementById("content")
 
+
 const alert_search = document.getElementById("alert-search")
 const btnSearch = document.getElementById("btn-search");
 btnSearch.addEventListener("click", Show_Alert);
 const modal = new bootstrap.Modal("#buy-modal")
-const DropdownItem = document.querySelectorAll("dropdown-item");
+const DropdownItem = document.getElementsByClassName("dropdown-item");
 
 for (const item of DropdownItem) {
     item.addEventListener("click", dropdownClick)
 }
 
-LoadData()
 
-function LoadData() {
-    switch(this.textContent){ 
+function dropdownClick(){
+    for (const item of DropdownItem) {
+        item.classList.remove("active")
+    }
+    this.classList.add("active")
+    LoadData(this.textContent)
+}
+
+LoadData("PC")
+
+function LoadData(category) {
+    let products
+    let ProductHeader
+    let imgFolder
+    switch(category){ 
     case "PC": 
-        loadProducts(pc, pc_headers, "pc"); 
+        products = pc
+        ProductHeader = pc_header
+        imgFolder = "pc"
         break; 
     case "Telefoni": 
-        loadProducts(telefoni, telefoni_headers, "telefoni"); 
+        products = telefoni
+        ProductHeader = telefoni_header
+        imgFolder = "telefoni"
         break; 
     case "Tv": 
-        loadProducts(tv, tv_headers, "tv"); 
+        products = tv
+        ProductHeader = tv_header
+        imgFolder = "tv"
         break; 
     case "Audio Player": 
-        loadProducts(player, player_headers, "player"); 
+        products = player
+        ProductHeader = player_header
+        imgFolder = "player"
         break; 
-}
+    }
+    Loadproduct(products, ProductHeader, imgFolder);
 }
 
 function Show_Alert() {
@@ -38,7 +60,8 @@ function Show_Alert() {
     }, 3000);
 }
 
-function Loadproduct(Prodotto, CategorieProdotto){
+
+function Loadproduct(Prodotto, CategorieProdotto, cartella){
     content.innerHTML = ""
     const h3 = document.createElement("h3")
     h3.textContent = `Numero di Prodotti: ${Prodotto.length}`
@@ -48,7 +71,7 @@ function Loadproduct(Prodotto, CategorieProdotto){
     row.classList.add("row")
     content.append(row)
 
-    /*for (const prodotti of prodotto) {
+    for (const prodotti of Prodotto) {
         const col = document.createElement("div")
         col.classList.add("col-md-4")
         row.append(col)
@@ -59,7 +82,7 @@ function Loadproduct(Prodotto, CategorieProdotto){
 
         const img = document.createElement("img")
         img.classList.add("card-img-top")
-        img.src = `img/pc/img${pc[0]}.jpg`
+        img.src = `img/${cartella}/img${prodotti[0]}.jpg`
         card_shadow.append(img)
 
         const card = document.createElement("div")
@@ -68,16 +91,16 @@ function Loadproduct(Prodotto, CategorieProdotto){
 
         const h5 = document.createElement("h5")
         h5.classList.add("card-title")
-        h5.textContent = pc[1]
+        h5.textContent = prodotti[1]
         card.append(h5)
 
         const p = document.createElement("p")
         p.classList.add("card-text")
-        p.innerHTML = `${pc_header[2]}: ${pc[2]}
-        <br> ${pc_header[3]}: ${pc[3]}
-        <br> ${pc_header[4]}: ${pc[4]}
-        <br> ${pc_header[5]}: ${pc[5]}
-        <br> ${pc_header[6]}: ${pc[6]}`
+        p.innerHTML = `${CategorieProdotto[2]}: ${prodotti[2]}
+        <br> ${CategorieProdotto[3]}: ${prodotti[3]}
+        <br> ${CategorieProdotto[4]}: ${prodotti[4]}
+        <br> ${CategorieProdotto[5]}: ${prodotti[5]}
+        <br> ${CategorieProdotto[6]}: ${prodotti[6]}`
         card.append(p)
 
         const btn = document.createElement("a")
@@ -87,5 +110,5 @@ function Loadproduct(Prodotto, CategorieProdotto){
             modal.show()
         })
         card.append(btn)
-    }*/
+    }
 }
