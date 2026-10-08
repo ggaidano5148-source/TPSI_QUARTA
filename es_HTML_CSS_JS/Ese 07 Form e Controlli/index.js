@@ -4,6 +4,8 @@ const form1 =  document.getElementById("form1")
 const txt1 = form1.querySelector("input[type=text]")
 const lst1 = form1.getElementsByTagName("select")[0]
 const chks = form1.querySelectorAll("input[type=checkbox]")
+const opts = form1.querySelectorAll("input[type=radio]")
+const lst2 = form1.getElementsByTagName("select")[1]
 
 // richiamato dall'html
 function visualizza(index) {
@@ -26,22 +28,83 @@ function visualizza(index) {
 		case 4:
 			const selectedChks = form1.querySelectorAll("input[type=checkbox]:checked")
 			for(let chk of selectedChks)
-				msg += chk.name + " : " + chk.value + "\n"
+				//msg += chk.name + chk.getAttribute("data-index") +  " : " + chk.value + "\n"
+				msg += chk.name + chk.dataset.index +  " : " + chk.value + "\n"
 			break;
-		case 4:
+		case 5:
 			const notSelectedChks = form1.querySelectorAll("input[type=checkbox]:not(:checked)")
 			for(let chk of notSelectedChks)
-				msg += chk.name + " : " + chk.value + "\n"
+				//msg += chk.name + chk.getAttribute("data-index") +  " : " + chk.value + "\n"
+				msg += chk.name + chk.dataset["index"] +  " : " + chk.value + "\n"
 			break;
-
-		
+		case 6:
+			const selectedRadio = form1.querySelector("input[type=radio]:checked")
+			if (selectedRadio) 
+				msg = selectedRadio.name + selectedRadio.dataset["index"] +  " : " + selectedRadio.value + "\n"
+			else
+				msg = "nessun campo selezionato"
+			break;
+		case 7:
+			const notSelectedRadio = form1.querySelectorAll("input[type=radio]:not(:checked)")
+			for(let opt of notSelectedRadio)
+				//msg += chk.name + chk.getAttribute("data-index") +  " : " + chk.value + "\n"
+				msg += opt.name + opt.dataset["index"] +  " : " + opt.value + "\n"
+			break;
+		case 8:
+			for(const item of lst2.selectedOptions){
+				msg += item.value + "\n"
+			}
+			if(!msg)
+				msg = "nessun valore selezionato"
+			break;
 	}
 	alert(msg);
 }
 
 
 function imposta(index){	
+	let newValue
 	switch(index){
+		case 1:
+			newValue = prompt("inserisci un testo: ")
+			txt1.value = newValue
+			break;
+		case 2:
+			newValue = prompt("inserisci il value della voce da selezionare: ")
+			lst1.value = newValue
+			break;
+		case 3:
+			newValue = prompt("inserisci il value del checkbox da selezionare: ").toLowerCase()
+			for (const item of chks){
+				const lblText = item.parentElement.textContent.trim().tLowerCase()
+				const itemText = item.value.toLowerCase()
+				if( itemText== newValue || lblText == newValue){
+					item.checked = true
+					break;
+				}
+			}
+			break;
+		case 4:
+			newValue = prompt("inserisci il value del radiobutton da selezionare: ").toLowerCase()
+			for (const item of opts){
+				const lblText = item.parentElement.textContent.trim().toLowerCase()
+				if( item.value.toLowerCase() == newValue || lblText == newValue){
+					item.checked = true
+					break;
+				}
+			}
+			break;
+		case 5:
+			newValue = prompt("inserisci il value della voce da selezionare").toLowerCase()
+			for (const item of lst2){
+				const text = item.textContent.trim().toLowerCase()
+				if( item.value.toLowerCase() == newValue || text == newValue){
+					item.selected = true
+					break;
+				}
+			}
+			
+			break;
 
 	}	 
 }
