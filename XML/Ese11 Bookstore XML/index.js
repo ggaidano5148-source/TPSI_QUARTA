@@ -19,6 +19,7 @@ const btnAddView = headerButtons[2];
 const btnSave = headerButtons[3];
 
 let id, titolo, categoria, lingua, autori, anno , prezzo 
+let detailIndex = 0
 
 
 //avvio 
@@ -90,7 +91,23 @@ function loadBooks(params){
 }
 
 function loadDetails(params){
-    
+    details.innerHTML = ""
+    if(xmlroot.children.length > 0){
+        const book = xmlroot.children[detailIndex]
+        readFields(book)
+        createDetailLine("id", id)
+        createDetailLine("titolo", titolo)
+        createDetailLine("categoria", categoria)
+        createDetailLine("lingua", lingua)
+        createDetailLine("autori", autori)
+        createDetailLine("anno", anno)
+        createDetailLine("prezzo", prezzo) 
+    }
+}
+
+function createDetailLine(key, value){
+    let lbl = document.createElement("label")
+    lbl.textContent = key
 }
 
 function readFields(book){
