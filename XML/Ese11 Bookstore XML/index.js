@@ -18,6 +18,15 @@ const btnDetailsView = headerButtons[1];
 const btnAddView = headerButtons[2];
 const btnSave = headerButtons[3];
 
+//pulsanti di navigazione dei dettagli
+const navButtons = detailsView.querySelectorAll("button");
+const btnPrimo = navButtons[0];
+const btnIndietro = navButtons[1];
+const btnAvanti = navButtons[2];
+const btnUlitmo = navButtons[3];
+const btnElimina = navButtons[4];
+
+
 let id, titolo, categoria, lingua, autori, anno , prezzo 
 let detailIndex = 0
 
@@ -40,6 +49,10 @@ const xmlroot = xmlDoc.firstElementChild
 btnListView.addEventListener("click", showList)
 btnDetailsView.addEventListener("click", showDetails)
 btnAddView.addEventListener("click", showAdd)
+// pulsanti di navigazione dei dettagli
+for (const btn of navButtons) {
+    btn.addEventListener("click", navigaDettagli)
+}
 
 // carichiamo i libri
 showList()
@@ -102,12 +115,20 @@ function loadDetails(params){
         createDetailLine("autori", autori)
         createDetailLine("anno", anno)
         createDetailLine("prezzo", prezzo) 
+        abilitaPulsanti(true)
+    }
+    else{
+        abilitaPulsanti(false)
     }
 }
 
 function createDetailLine(key, value){
     let lbl = document.createElement("label")
-    lbl.textContent = key
+    lbl.textContent = key + ":"
+    details.append(lbl)
+    let p = document.createElement("p")
+    p.textContent = value
+    details.append(p)
 }
 
 function readFields(book){
@@ -155,7 +176,40 @@ function reset(params){
     }
 }
 
+function navigaDettagli(){
+    switch(this.textContent){
+        case "Primo":
+            detailIndex = 0
+            break;
+        case btnIndietro.textContent:
+            if(detailIndex > 0)
+                detailIndex--
+            break;
+        case btnAvanti.textContent:
+            if(detailIndex < xmlroot.children.length - 1)
+                detailIndex++
+            break;
+        case btnUlitmo.textContent:
+            detailIndex = xmlroot.children.length - 1
+            break;
+        case btnElimina.textContent:
+            deleteBook(xmlroot.children[detailIndex])
+            break;
+        default:
+            break;
+    }
+    loadDetails()
+}
 
+function deleteBook(book){
+    book.remove()
+    detailIndex = 0
+}
+
+function abilitaPulsanti(enabled){
+    for(const btn of navButtons)
+        btn.disabled = !enabled
+}
 
 
 
