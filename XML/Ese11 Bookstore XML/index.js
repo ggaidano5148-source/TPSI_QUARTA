@@ -10,7 +10,10 @@ const details = detailsView.querySelector(".details")
 const pageLabel = detailsView.querySelector("span")
 
 const addView = document.getElementById("add-view");
+const btnAdd = addView.querySelector(".button");
+
 addView.style.display="none"
+//voci della navbarsuperiore 
 const newBook = addView.querySelector(".details")
 const headerButtons = document.getElementsByClassName("headerBtn");
 const btnListView = headerButtons[0];
@@ -33,14 +36,14 @@ let detailIndex = 0
 
 //avvio 
 btnListView.classList.add("active");
-let bookStore = localStorage.getItem("bookstore")
-if(!bookStore)
-    bookStore = datiIniziali
-console.log(bookStore)
+let xmlBookStore = localStorage.getItem("bookstore")
+if(!xmlBookStore)
+    xmlBookStore = datiIniziali
+console.log(xmlBookStore)
 
 // parsing
 const parser = new DOMParser() 
-const xmlDoc = parser.parseFromString(bookStore, "text/xml")
+const xmlDoc = parser.parseFromString(xmlBookStore, "text/xml")
 
 // prendiamo xmlroot
 const xmlroot = xmlDoc.firstElementChild
@@ -100,6 +103,10 @@ function loadBooks(params){
         btn.style.color = "white"
         td.appendChild(btn)
         tr.appendChild(td)
+        btn.addEventListener("click", function(){
+            deleteBook(book)
+            showList()
+        })
     }
 }
 
@@ -116,6 +123,7 @@ function loadDetails(params){
         createDetailLine("anno", anno)
         createDetailLine("prezzo", prezzo) 
         abilitaPulsanti(true)
+        pageLabel.textContent = (detailIndex + 1) + "/" + xmlroot.children.length
     }
     else{
         abilitaPulsanti(false)
@@ -211,6 +219,45 @@ function abilitaPulsanti(enabled){
         btn.disabled = !enabled
 }
 
+btnAdd.addEventListener("click", function(){
+    const book = xmlDoc.createElement("book")
+    book.setAttribute("category", txtCategoria.value)
+    xmlroot.append(book)
 
+    const id = xmlDoc.createElement("id")
+    id.textContent = txtId.value
+    book.append(id)
+
+    const title = xmlDoc.createElement("title")
+    title.textContent = txtTitolo.value
+    title.setAttribute("lang", txtLingua.value)
+    book.append(title)
+
+    const autorsstring = txtAutori.value
+    const authors = autorsstring.split(" - ")
+    for(const author of authors){
+        const authorTag = xmlDoc.createElement("author")
+        authorTag.textContent = author
+        book.append(authorTag)
+    }
+
+    const year = xmlDoc.createElement("year")
+    year.textContent = txtAnno.value
+    book.append(year)
+
+    const price = xmlDoc.createElement("price")
+    price.textContent = txtPrezzo.value
+    book.append(price)
+
+    //book.append(id, title, ...)
+    showList()
+})
+
+btnSave.addEventListener("click", function(){
+    const serializer = new XMLSerializer()
+    const xmlBookStore = serializer.serializeToString(xmlDoc)
+    localStorage.setItem("bookstore", xmlBookStore)
+    alert("dati salvati")
+})
 
 
