@@ -1,0 +1,86 @@
+#optWrapper{
+	width:160px;
+	margin: 20px auto;
+	background-color:#ffa;
+	font-size:18pt;
+	padding:20px;
+	padding-left:40px;
+	font-style:italic;
+	font-weight:bold;
+	border-radius:15px;
+	border:1px solid blue;
+}
+
+table{
+	background-color:#ddd;
+	margin: 20px auto;
+	padding:10px;
+	width:700px;
+	border-radius:15px;
+	border:1px solid blue;
+}
+
+table tr{
+	height:36px;
+}
+
+table td{
+	text-align:center;
+}
+
+#pageButtons{
+	width:420px;
+	margin: 20px auto;
+	padding: 10px;
+	background-color:#ffa;
+	border-radius:15px;
+	border:1px solid blue;
+	overflow:auto;
+}
+
+#utilityButtons{
+	width:170px;
+	margin: 20px;
+	padding: 10px;
+	background-color:#ffa;
+	border-radius:15px;
+	border:1px solid blue;
+	overflow:auto;
+}
+
+#pageButtons input, #utilityButtons input{
+	display : block;
+	float:left;
+	width:80px;
+	margin:5px;
+	padding:10px;
+	text-align:center;
+	font-weight: 600;
+	border-radius:5px;
+}
+
+#pageButtons p{
+	float:left;
+	width:25px;
+	margin:5px;
+	padding:10px;
+	text-align:center;
+	font-weight: 600;
+}
+
+#details{
+	margin: 20px auto;
+	padding:5px;
+	text-align:center;
+	width:350px;
+	height:220px;
+	background-color:#ddd;
+	border-radius:15px;
+	border:1px solid blue;
+}
+
+#utilityButtons input:nth-of-type(1){
+	width:160px;
+}
+
+
