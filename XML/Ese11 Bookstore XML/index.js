@@ -208,7 +208,6 @@ function navigaDettagli(){
     }
     loadDetails()
 }
-
 function deleteBook(book){
     book.remove()
     detailIndex = 0
