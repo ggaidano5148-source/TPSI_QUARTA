@@ -21,6 +21,8 @@ navBtns.forEach(function(button){
 	button.addEventListener("click", naviga)
 })
 
+utilityBtns[0].addEventListener("click", eliminaPernazione)
+
 //data filtrati
 let fileredData
 // Avvio
@@ -146,5 +148,12 @@ function naviga(){
 }
 
 function removePerson(person){
-	
+	let index = people.indexOf(person)
+	people.splice(index, 1)
+	alert(getName(person.name) + " rimosso correttamente")
+	displayData()
+}
+
+function eliminaPernazione(){
+	const nazione = prompt("inesire una nazione")
 }
