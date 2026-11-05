@@ -22,6 +22,9 @@ navBtns.forEach(function(button){
 })
 
 utilityBtns[0].addEventListener("click", eliminaPernazione)
+utilityBtns[1].addEventListener("click", ordina)
+utilityBtns[2].addEventListener("click", salva)
+utilityBtns[3].addEventListener("click", addNew)
 
 //data filtrati
 let fileredData
@@ -31,7 +34,7 @@ const people = loadData();
 displayData()
 
 
-
+/* - - - - - funtion - - - - - */
 
 function loadData(){
 	let peopleString = localStorage.getItem("people");
@@ -90,6 +93,10 @@ function displayData() {
 
 function getName(personName){
 	return `${personName.first} ${personName.last}`
+}
+
+function getNameForSort(personName){
+	return `${personName.last} ${personName.first}`
 }
 
 function showDetail(person){
@@ -156,4 +163,27 @@ function removePerson(person){
 
 function eliminaPernazione(){
 	const nazione = prompt("inesire una nazione")
+}
+
+let a_z = true
+function ordina(){
+	people.sort(function (item1, item2){
+		let n1 = getNameForSort(item1.name)
+		let n2 = getNameForSort(item2.name)
+		return a_z ? n1.localeCompare(n2) : n2.localeCompare(n1)
+	})
+	displayData()
+	a_z = !a_z
+}
+
+function salva(){
+	let data = JSON.stringify(people)
+	//localStorage.setItem("people", data)
+	//localStorage["people"] = data  		
+	localStorage.people = data 			// sono la stessa cosa ma le prime due sono parametrizzabili
+	alert("Dati salvati correttamente")
+}
+
+function addNew(){
+
 }
