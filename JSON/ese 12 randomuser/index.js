@@ -110,6 +110,7 @@ function showDetail(person){
 	details.append(p)
 
 	let img = document.createElement("img")
+	img.style.maxWidth = "150px"
 	img.src = person.picture.large
 	details.append(img)
 
@@ -202,6 +203,11 @@ function addNew(){
 			return 
 		}
 	}
+	if(txtGender.value != "male" && txtGender.value != "female"){
+		alert("controlla il genere")
+		return
+	}
+
 
 	// salvattaggio
 	let person = {
@@ -235,7 +241,7 @@ function addNew(){
             "value":null
          },
          "picture":{
-            "large":"",
+            "large":"https://statics.cedscdn.it/uploads/ckfile/202304/claudio%20bisio%20carriera_29153148.jpg",
             "medium":"",
             "thumbnail":""
          },
@@ -246,4 +252,9 @@ function addNew(){
 
 	salva()
 	displayData()
+
+	//pulisco i dati
+	for (const input of inputData) {
+		input.value = ""
+	}
 }
