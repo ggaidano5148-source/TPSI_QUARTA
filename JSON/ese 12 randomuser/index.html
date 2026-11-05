@@ -71,14 +71,15 @@
 		  </div>
 		</div>
 
-		<!-- Riga 3: Nazionalità (singola colonna espansa o mantenuta in riga) -->
+		<!-- Riga 3: Nazionalità (singola colonna espansa o mantenuta in riga) e gender -->
 		<div class="form-row">
 		  <div class="form-group">
 			<label for="txtNat">Nazionalità</label>
 			<input type="text" id="txtNat" placeholder="Es. Italiana">
 		  </div>
 		  <div class="form-group">
-			<!-- Spazio vuoto o un altro campo se serve in futuro -->
+			<label for="txtGender">Genere</label>
+			<input type="text" id="txtGender" placeholder="male/feamle">
 		  </div>
 		</div>
 
@@ -95,7 +96,7 @@
 
 		<!-- Pulsanti di azione -->
 		<div class="modal-actions">
-		  <button type="button" id="btnAnnulla" class="btn-secondary">Annulla</button>
+		  <button type="button" id="btnAnnulla" class="btn-secondary" commandfor="addNewModal" command="close">Annulla</button>
 		  <button type="button" id="btnSalva" class="btn-primary">Salva</button>
 		</div>
 	</dialog>

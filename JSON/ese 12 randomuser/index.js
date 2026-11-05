@@ -24,12 +24,14 @@ navBtns.forEach(function(button){
 utilityBtns[0].addEventListener("click", eliminaPernazione)
 utilityBtns[1].addEventListener("click", ordina)
 utilityBtns[2].addEventListener("click", salva)
-utilityBtns[3].addEventListener("click", addNew)
+utilityBtns[3].addEventListener("click", function(){ modal.showModal() })
+btnSalva.addEventListener("click", addNew)
 
 //data filtrati
 let fileredData
-// Avvio
 let currentIndex = 0
+
+// Avvio
 const people = loadData();
 displayData()
 
@@ -185,5 +187,63 @@ function salva(){
 }
 
 function addNew(){
+	//controllo validità dati
+	let inputData = Array.from(modal.getElementsByTagName("input"))
+	/*inputData.forEach(function (input){ 	//foreach non può essere interrotto
+		if(input.value.trim() == ""){
+			alert("dati incompleti")
+			badData = true
+			return 
+		}
+	});*/
+	for (const input of inputData) {
+		if(input.value.trim() == ""){
+			alert("dati incompleti")
+			return 
+		}
+	}
 
+	// salvattaggio
+	let person = {
+         "gender": txtGender.value,
+         "name":{
+            "title":txtGender.value == "male"? "mr" : "miss",
+            "first":txtFirst.value,
+            "last":txtLast.value
+         },
+         "location":{
+            "street":"9281 southampton street",
+            "city": txtCity.value,
+            "state": txtState.value,
+            "postcode":0
+         },
+         "email": txtEmail.value,
+         "login":{
+            "username":"",
+            "password":"",
+            "salt":"",
+            "md5":"",
+            "sha1":"",
+            "sha256":""
+         },
+         "dob":"",
+         "registered":"",
+         "phone": txtPhone.value,
+         "cell":"",
+         "id":{
+            "name":"",
+            "value":null
+         },
+         "picture":{
+            "large":"",
+            "medium":"",
+            "thumbnail":""
+         },
+         "nat":txtNat.value
+	}
+
+	people.push(person)
+
+	salva()
+	displayData()
 }
