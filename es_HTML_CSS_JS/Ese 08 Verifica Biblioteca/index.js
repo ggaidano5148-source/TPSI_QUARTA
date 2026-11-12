@@ -7,7 +7,7 @@ const btnLoginClose = alertLogin.querySelector("button");
 const vociMenu = navbarContent.querySelectorAll("a");
 let lastSelected = vociMenu[0]
 const detailsModal = new bootstrap.Modal("#modal-details")
-const card = document.querySelector("#modal-details .card")
+const card = document.querySelector("#modal-details .card-containers")
 
 
 visualizzaLibri()
@@ -77,6 +77,6 @@ function visualizzaDettagli(libro){
 
 function eliminaLibro(id){
     for (const item of libri) {
-        if(libro.id == id)
+        
     }
 }
